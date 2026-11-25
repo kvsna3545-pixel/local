@@ -22,152 +22,153 @@
   font-family: "Optimistic Mono", ui-monospace, monospace;
 }
 </style>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>God Luau Vault - ฝากสคริป + ป้องกันโค้ด</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>God Luau Vault - Private Loader</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#0b0b12;color:#e8e8f0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
 header{padding:18px 16px 12px;background:#12121f;border-bottom:1px solid #2a2a3f;position:sticky;top:0;z-index:5}
 header h1{margin:0;font-size:22px}header h1 span{color:#a78bfa}
 header p{margin:6px 0 0;color:#9ca3af;font-size:13px}
-.wrap{max-width:900px;margin:0 auto;padding:14px 14px 40px}
+.wrap{max-width:920px;margin:0 auto;padding:14px 14px 40px}
 .card{background:#151524;border:1px solid #2a2a3f;border-radius:14px;padding:14px;margin-bottom:14px}
 label{font-size:13px;color:#c7c7d8;display:block;margin:10px 0 6px}
-input,textarea,select{width:100%;background:#0f0f1a;color:#fff;border:1px solid #2f2f4a;border-radius:10px;padding:11px;font-size:14px;outline:none}
-textarea{font-family:ui-monospace,Menlo,monospace;min-height:180px;line-height:1.5}
-textarea.small{min-height:120px}
+input,textarea{width:100%;background:#0f0f1a;color:#fff;border:1px solid #2f2f4a;border-radius:10px;padding:11px;font-size:14px;outline:none}
+textarea{font-family:ui-monospace,Menlo,monospace;min-height:170px;line-height:1.5}
+textarea.small{min-height:110px}
 .row{display:flex;gap:8px;flex-wrap:wrap}.row>*{flex:1;min-width:140px}
 .btn{border:0;border-radius:10px;padding:12px 14px;font-weight:700;cursor:pointer;font-size:15px}
-.btn-p{background:#7c3aed;color:#fff;width:100%}.btn-p:active{transform:scale(.98)}
-.btn-g{background:#22c55e;color:#000}.btn-d{background:#27273a;color:#fff}.btn-r{background:#ef4444;color:#fff}
+.btn-p{background:#7c3aed;color:#fff;width:100%}
+.btn-g{background:#22c55e;color:#000}.btn-d{background:#27273a;color:#fff}.btn-r{background:#ef4444;color:#fff}.btn-y{background:#facc15;color:#000}.btn-o{background:#f97316;color:#fff}
 .chip{display:inline-flex;gap:6px;align-items:center;background:#1f1f33;border:1px solid #33335a;border-radius:999px;padding:6px 10px;font-size:13px;margin:4px 4px 0 0}
-.chip button{border:0;background:transparent;color:#fff;cursor:pointer}
 .badge{background:#a78bfa;color:#000;font-size:11px;padding:3px 8px;border-radius:999px;font-weight:700}
+.badge2{background:#22c55e;color:#000;font-size:11px;padding:3px 8px;border-radius:999px;font-weight:700}
 .item{background:#0f0f1a;border:1px solid #2a2a3f;border-radius:12px;padding:12px;margin-top:10px}
-.item b{font-size:15px}.muted{color:#9ca3af;font-size:12px}
-code{word-break:break-all}.ok{color:#4ade80}.err{color:#f87171}
+.muted{color:#9ca3af;font-size:12px}.ok{color:#4ade80}.err{color:#f87171}
 pre{white-space:pre-wrap;word-break:break-word;background:#0a0a14;border:1px solid #2a2a3f;padding:12px;border-radius:10px;font-size:13px;overflow:auto}
-details{margin-top:10px}summary{cursor:pointer;font-weight:700}
+.orangebox{background:#2a1a0a;border:1px solid #f97316;border-radius:10px;padding:10px;font-size:13px;line-height:1.6}
+code{word-break:break-all}
 </style>
 </head>
 <body>
-<header><h1>GOD <span>LUAU VAULT</span></h1><p>ฝากสคริป Luau + ป้องกันโค้ด • ทำงานได้เลยบน GitHub Pages ไม่ต้องมีฐานข้อมูล</p></header>
+<header><h1>GOD <span>LUAU VAULT</span></h1><p>Private Loader + Key - ใส่โดเมนของนายเอง</p></header>
 <div class="wrap">
 <div class="card">
-<h2 style="margin:0 0 4px">1. ใส่สคริป</h2>
-<label>ชื่อสคริป</label><input id="name" placeholder="เช่น Auto Farm v1">
-<label>โค้ด Luau</label><textarea id="code" placeholder="-- วางโค้ด Luau ตรงนี้&#10;local Players = game:GetService(&quot;Players&quot;)&#10;print(&quot;Hello God Vault&quot;)"></textarea>
-<div class="row"><button class="btn btn-d" onclick="loadSample()">ใส่โค้ดตัวอย่าง</button><button class="btn btn-d" onclick="clearCode()">ล้างโค้ด</button></div>
+<h2 style="margin:0">1. ใส่สคริป</h2>
+<label>ชื่อสคริป</label><input id="name" placeholder="เช่น test_ui" value="test_ui">
+<label>โค้ด Luau</label><textarea id="code" placeholder="-- วางโค้ด Luau ตรงนี้"></textarea>
+<div class="row"><button class="btn btn-d" onclick="loadSample()">ใส่โค้ดตัวอย่าง</button><button class="btn btn-y" onclick="saveLocalDraft()">💾 ฝาก Local แบบดิบ</button></div>
 <label>ระดับป้องกัน</label>
-<div><span class="chip"><input type="radio" name="level" value="1" checked> เบา</span><span class="chip"><input type="radio" name="level" value="2"> กลาง</span><span class="chip"><input type="radio" name="level" value="3"> หนัก</span></div>
-<label>ตัวเลือกป้องกัน</label>
-<div id="opts">
+<div><span class="chip"><input type="radio" name="level" value="1"> เบา</span><span class="chip"><input type="radio" name="level" value="2" checked> กลาง</span><span class="chip"><input type="radio" name="level" value="3"> หนัก</span></div>
+<label>Obfuscator v2</label>
+<div>
 <span class="chip"><input type="checkbox" id="oComment" checked> ลบ Comment</span>
 <span class="chip"><input type="checkbox" id="oRename" checked> เปลี่ยนชื่อตัวแปร</span>
-<span class="chip"><input type="checkbox" id="oString" checked> เข้ารหัส String</span>
-<span class="chip"><input type="checkbox" id="oWater" checked> ใส่ Watermark / ID</span>
-<span class="chip"><input type="checkbox" id="oJunk" > ใส่โค้ดหลอก</span>
+<span class="chip"><input type="checkbox" id="oString" checked> เข้ารหัส String XOR</span>
+<span class="chip"><input type="checkbox" id="oNumber" checked> เข้ารหัสตัวเลข</span>
+<span class="chip"><input type="checkbox" id="oWater" checked> Watermark</span>
+<span class="chip"><input type="checkbox" id="oJunk" checked> โค้ดหลอก</span>
+<span class="chip"><input type="checkbox" id="oWrap" checked> ห่อ Function</span>
 </div>
-<br><button class="btn btn-p" onclick="protectAndSave()">🛡️ ป้องกัน + ฝากสคริปเข้าคลัง</button>
+<br><button class="btn btn-p" onclick="protectAndSave()">🛡️ ป้องกัน v2 + ฝาก Local</button>
 <p id="saveMsg" class="muted"></p>
 </div>
-
 <div class="card">
 <h2 style="margin:0">2. โค้ดที่ป้องกันแล้ว</h2>
-<p class="muted">ก็อปไปใช้ได้เลย หรือกดดาวน์โหลดเป็น .luau</p>
-<textarea id="out" class="small" readonly placeholder="กดปุ่มด้านบนก่อน โค้ดที่ป้องกันแล้วจะขึ้นตรงนี้"></textarea>
+<textarea id="out" class="small" readonly></textarea>
 <div class="row"><button class="btn btn-g" onclick="copyOut()">คัดลอกโค้ด</button><button class="btn btn-d" onclick="downloadOut()">ดาวน์โหลด .luau</button></div>
-<label>Loader สำหรับ Roblox</label><textarea id="loader" class="small" readonly placeholder="Loader จะขึ้นหลังฝากสคริป"></textarea>
-<button class="btn btn-d" onclick="copyLoader()">คัดลอก Loader</button>
 </div>
-
+<div class="card" style="border-color:#f97316">
+<h2 style="margin:0">3. Private Loader - ใส่โดเมนของนายเอง</h2>
+<div class="orangebox">รูปแบบ:<br><code>loadstring(game:HttpGet("https://โดเมนของนาย/raw/ชื่อสคริป-สุ่ม?k=คีย์"))()</code><br>เซิร์ฟเวอร์จะเช็ก <code>?k=</code> ถ้า Key ถูกถึงจะส่งโค้ดให้</div>
+<label>โดเมนของนาย (ใส่แค่โดเมน ไม่ต้องใส่ https://)</label><input id="cfDomain" placeholder="เช่น my-server.com หรือ 123.45.67.89:3000">
+<label>ชื่อไฟล์ (slug)</label><input id="cfSlug" value="test_ui_testbyme">
+<div class="row"><div><label>Random ID</label><input id="cfRand" value="Zety1XK5iWs"></div><div><label>Key (?k=)</label><input id="cfKey" value=""></div></div>
+<div class="row"><button class="btn btn-d" onclick="genCf()">🎲 สุ่ม ID + Key ใหม่</button><button class="btn btn-o" onclick="buildCfLoader()">สร้าง Loader</button></div>
+<label>Loader ตัวจริง - ก็อปอันนี้ไปใช้</label><textarea id="loaderCf" class="small" readonly></textarea>
+<button class="btn btn-g" onclick="copyCf()">คัดลอก Loader</button>
+<label>Loader แบบปลอดภัย (มี pcall)</label><textarea id="loaderSafe" class="small" readonly></textarea>
+<button class="btn btn-d" onclick="copyLoader('loaderSafe')">คัดลอกแบบปลอดภัย</button>
+</div>
 <div class="card">
-<h2 style="margin:0">3. คลังสคริปของฉัน <span class="badge" id="count">0 สคริป</span></h2>
-<p class="muted">เก็บในเครื่องนี้ (localStorage) เปิดเว็บใหม่ก็ยังอยู่ ไม่ต้องรีเฟรช</p>
-<button class="btn btn-d" onclick="renderList()">🔄 รีเฟรชคลัง</button>
+<h2 style="margin:0">4. Loader แบบ GitHub (สำรอง)</h2>
+<textarea id="loaderGh" class="small" readonly></textarea>
+<button class="btn btn-d" onclick="copyLoader('loaderGh')">คัดลอก Loader GitHub</button>
+</div>
+<div class="card">
+<h2 style="margin:0">5. คลัง Local <span class="badge" id="count">0 สคริป</span></h2>
+<div class="row"><button class="btn btn-d" onclick="filterList('all')">ทั้งหมด</button><button class="btn btn-d" onclick="filterList('raw')">เฉพาะดิบ</button><button class="btn btn-d" onclick="filterList('protected')">เฉพาะป้องกันแล้ว</button><button class="btn btn-r" onclick="clearAllLocal()">ลบ Local ทั้งหมด</button></div>
 <div id="list"></div>
 </div>
-
 <div class="card">
-<h2 style="margin:0">4. ฝากขึ้น GitHub</h2>
-<p class="muted">สร้าง Token ที่ github.com/settings/tokens แบบ Classic เลือก scope repo + gist แล้ววางตรงนี้ Token จะไม่ถูกบันทึกถาวร</p>
-<label>GitHub Username</label><input id="ghUser" placeholder="เช่น kvsna3545-pixel" value="kvsna3545-pixel">
-<label>ชื่อ Repo</label><input id="ghRepo" placeholder="local" value="local">
+<h2 style="margin:0">6. ฝากขึ้น GitHub</h2>
+<label>GitHub Username</label><input id="ghUser" value="kvsna3545-pixel">
+<label>ชื่อ Repo</label><input id="ghRepo" value="local">
 <div class="row"><div><label>Branch</label><input id="ghBranch" value="main"></div><div><label>โฟลเดอร์</label><input id="ghFolder" value="scripts/"></div></div>
-<label>GitHub Personal Access Token</label><input id="ghToken" type="password" placeholder="ghp_...">
+<label>GitHub Token</label><input id="ghToken" type="password" placeholder="ghp_...">
 <div class="row"><button class="btn btn-d" onclick="testGH()">ทดสอบเชื่อมต่อ</button><button class="btn btn-g" onclick="uploadGH()">ฝากไฟล์ขึ้น Repo</button></div>
 <p id="ghMsg" class="muted"></p>
-<details><summary>วิธีใช้ GitHub Pages</summary><p class="muted">1. อัปไฟล์นี้เป็น index.html ใน repo<br>2. Settings &gt; Pages &gt; Branch main &gt; Save<br>3. เปิด https://ชื่อผู้ใช้.github.io/ชื่อrepo/</p></details>
 </div>
 </div>
 <script>
+let currentFilter='all';
 function genId(){return 'GOD-'+Math.random().toString(36).slice(2,6).toUpperCase()}
-function loadSample(){document.getElementById('code').value='-- Auto Farm Example\nlocal Players = game:GetService("Players")\nlocal LocalPlayer = Players.LocalPlayer\nlocal function farm()\n  print("Farming...")\n  wait(1)\n  print("Done by " .. LocalPlayer.Name)\nend\nfarm()'}
-function clearCode(){document.getElementById('code').value=''}
-function encodeStr(s){let a=[];for(let c of s){a.push(c.charCodeAt(0))}return 'string.char('+a.join(',')+')'}
-function obfuscate(src,level){
-  let code=src;
+function randHex(){return Math.floor(Math.random()*0xffffff).toString(16)}
+function randStr(n){let s='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';let r='';for(let i=0;i<n;i++)r+=s[Math.floor(Math.random()*s.length)];return r}
+function loadSample(){document.getElementById('code').value='local Players = game:GetService("Players")\nlocal LocalPlayer = Players.LocalPlayer\nlocal speed = 50\nlocal message = "Hello Farm"\nlocal function farm()\n print(message)\nend\nfarm()'}
+function getScripts(){try{return JSON.parse(localStorage.getItem('god_vault_scripts_v4')||'[]')}catch(e){return []}}
+function setScripts(a){localStorage.setItem('god_vault_scripts_v4',JSON.stringify(a))}
+function saveLocalDraft(){let src=document.getElementById('code').value.trim();let name=document.getElementById('name').value.trim()||'Untitled';if(!src)return alert('วางโค้ดก่อน');let list=getScripts();list.unshift({id:genId(),name:name,code:src,level:0,type:'raw',date:new Date().toLocaleString('th-TH')});setScripts(list);renderList();alert('ฝาก Local แบบดิบแล้ว')}
+function obfuscateV2(src,level){
+  let key=Math.floor(Math.random()*100)+11;let decName='_D'+randHex();let varMap={};
+  let strings=[];let code=src.replace(/"([^"\\\n]*)"/g,(m,inner)=>{strings.push(inner);return '@@STR'+(strings.length-1)+'@@'});
   if(document.getElementById('oComment').checked){code=code.replace(/--\[\[[\s\S]*?\]\]/g,'').replace(/--[^\n]*/g,'')}
-  let vars={};let n=0;
-  if(document.getElementById('oRename').checked){
-    code=code.replace(/local\s+([A-Za-z_][A-Za-z0-9_]*)/g,(m,v)=>{if(!vars[v]){n++;vars[v]='_G'+(100+n)+'x'}return 'local '+vars[v]});
-    for(let k in vars){let re=new RegExp('\\b'+k+'\\b','g');code=code.replace(re,vars[k])}
-  }
-  if(document.getElementById('oString').checked){code=code.replace(/"([^"\n]*)"/g,(m,inner)=>encodeStr(inner))}
-  code=code.split('\n').map(l=>l.trim()).filter(Boolean).join('\n');
-  if(level>=2){code=code.replace(/\n/g,'; ')}
-  let id=genId();
-  let head='';
-  if(document.getElementById('oWater').checked){head='--[[ Protected by God Vault | ID: '+id+' | '+new Date().toLocaleString('th-TH')+' ]]\n'}
-  let junk='';
-  if(document.getElementById('oJunk').checked||level>=3){junk='local _G999x=math.random(1,999); if _G999x==0 then print("x") end\n'}
-  return {code:head+junk+code,id}
+  if(document.getElementById('oRename').checked){code=code.replace(/local\s+([A-Za-z_][A-Za-z0-9_]*)/g,(m,v)=>{if(['true','false','nil'].includes(v))return m;if(!varMap[v])varMap[v]='_ '+randHex()+'x'.replace(' ','');return 'local '+varMap[v]});for(let k in varMap){code=code.replace(new RegExp('\\b'+k+'\\b','g'),varMap[k])}}
+  if(document.getElementById('oNumber').checked){code=code.replace(/\b(\d{2,})\b/g,(m,n)=>{let a=Math.floor(Math.random()*50)+1;return '('+a+'+'+(parseInt(n)-a)+')'})}
+  if(document.getElementById('oString').checked){code=code.replace(/@@STR(\d+)@@/g,(m,idx)=>{let s=strings[parseInt(idx)];let enc='';for(let c of s){enc+='\\'+((c.charCodeAt(0)+key)%256)}return decName+'("'+enc+'",'+key+')'})}else{code=code.replace(/@@STR(\d+)@@/g,(m,idx)=>'"'+strings[parseInt(idx)]+'"')}
+  code=code.split('\n').map(l=>l.trim()).filter(Boolean).join('\n');if(level>=2)code=code.replace(/\n/g,'; ');
+  let id=genId();let head='';
+  if(document.getElementById('oString').checked){head+='local '+decName+'=function(s,k) local r=""; for i=1,#s do r=r..string.char((string.byte(s,i)-k+256)%256) end return r end; '}
+  if(document.getElementById('oWater').checked){head+='--[[ Protected by God Vault | ID: '+id+' ]] '}
+  if(document.getElementById('oJunk').checked){head+='local _J'+randHex()+'=math.random(1,999); '}
+  let final=head+code;if(document.getElementById('oWrap').checked){final='(function() '+final+' end)()'}
+  return {code:final,id};
 }
-function getScripts(){try{return JSON.parse(localStorage.getItem('god_vault_scripts')||'[]')}catch(e){return []}}
-function setScripts(a){localStorage.setItem('god_vault_scripts',JSON.stringify(a))}
+function buildCfLoader(){
+  let domain=document.getElementById('cfDomain').value.trim().replace(/^https?:\/\//,'').replace(/\/$/,'');
+  if(!domain){alert('ใส่โดเมนของนายก่อน');return}
+  let slug=document.getElementById('cfSlug').value.trim()||'test_ui';
+  let rand=document.getElementById('cfRand').value.trim()||randStr(11);
+  let key=document.getElementById('cfKey').value.trim()||randStr(24);
+  document.getElementById('cfRand').value=rand;document.getElementById('cfKey').value=key;
+  let url='https://'+domain+'/raw/'+slug+'-'+rand+'?k='+key;
+  document.getElementById('loaderCf').value='loadstring(game:HttpGet("'+url+'"))()';
+  document.getElementById('loaderSafe').value='local _ok = pcall(function()\n  local _code = game:HttpGet("'+url+'", true)\n  if not _code or _code == "" then warn("[God Vault] Key ผิด หรือไฟล์ไม่มี") return end\n  loadstring(_code)()\nend)';
+}
+function genCf(){document.getElementById('cfRand').value=randStr(11);document.getElementById('cfKey').value=randStr(22)+'-'+randStr(8)+randStr(8);buildCfLoader()}
+function copyCf(){let v=document.getElementById('loaderCf').value;if(!v)return alert('สร้าง Loader ก่อน');navigator.clipboard.writeText(v).then(()=>alert('คัดลอก Loader แล้ว'))}
 function protectAndSave(){
-  let src=document.getElementById('code').value.trim();
-  let name=document.getElementById('name').value.trim()||'Untitled';
-  if(!src){alert('วางโค้ดก่อน');return}
-  let level=parseInt(document.querySelector('input[name="level"]:checked').value);
-  let r=obfuscate(src,level);
-  document.getElementById('out').value=r.code;
-  let list=getScripts();
-  let item={id:r.id,name:name,code:r.code,level:level,date:new Date().toLocaleString('th-TH')};
-  list.unshift(item);setScripts(list);
-  document.getElementById('saveMsg').innerHTML='<span class="ok">✅ ฝากสำเร็จแล้ว! ID: '+r.id+' - ดูในคลังข้างล่างได้เลย</span>';
-  document.getElementById('loader').value='loadstring(game:HttpGet("https://raw.githubusercontent.com/'+(document.getElementById('ghUser').value||'USERNAME')+'/'+(document.getElementById('ghRepo').value||'local')+'/'+(document.getElementById('ghBranch').value||'main')+'/'+(document.getElementById('ghFolder').value||'scripts/')+name.replace(/\s+/g,'_')+'.luau"))()';
+  let src=document.getElementById('code').value.trim();let name=document.getElementById('name').value.trim()||'Untitled';
+  if(!src)return alert('วางโค้ดก่อน');let level=parseInt(document.querySelector('input[name="level"]:checked').value);
+  let r=obfuscateV2(src,level);document.getElementById('out').value=r.code;
+  let list=getScripts();list.unshift({id:r.id,name:name,code:r.code,level:level,type:'protected',date:new Date().toLocaleString('th-TH')});setScripts(list);
+  document.getElementById('saveMsg').innerHTML='<span class="ok">✅ ป้องกัน v2 + ฝาก Local สำเร็จ! ID: '+r.id+'</span>';
+  document.getElementById('cfSlug').value=name.replace(/[^A-Za-z0-9_-]/g,'_')+'_testbyme';
+  let owner=document.getElementById('ghUser').value.trim()||'USERNAME';let repo=document.getElementById('ghRepo').value.trim()||'local';let branch=document.getElementById('ghBranch').value.trim()||'main';let folder=document.getElementById('ghFolder').value.trim();
+  let cleanName=name.replace(/[^A-Za-z0-9_-]/g,'_');let raw='https://raw.githubusercontent.com/'+owner+'/'+repo+'/'+branch+'/'+(folder?folder.replace(/\/$/,'')+'/':'')+cleanName+'.luau';
+  document.getElementById('loaderGh').value='loadstring(game:HttpGet("'+raw+'"))()';
   renderList();
 }
-function renderList(){
-  let list=getScripts();document.getElementById('count').textContent=list.length+' สคริป';
-  let el=document.getElementById('list');
-  if(!list.length){el.innerHTML='<p class="muted">ยังไม่มีสคริป ฝากสคริปแรกเลย</p>';return}
-  el.innerHTML=list.map((s,i)=>'<div class="item"><b>'+s.name+'</b> <span class="badge">'+s.id+'</span><div class="muted">'+s.date+' • ระดับ '+s.level+'</div><pre>'+s.code.slice(0,500)+(s.code.length>500?'...':'')+'</pre><div class="row"><button class="btn btn-d" onclick="viewScript('+i+')">ดูเต็ม</button><button class="btn btn-g" onclick="copyScript('+i+')">คัดลอก</button><button class="btn btn-r" onclick="delScript('+i+')">ลบ</button></div></div>').join('')
-}
-function viewScript(i){let s=getScripts()[i];document.getElementById('out').value=s.code;document.getElementById('name').value=s.name;window.scrollTo({top:0,behavior:'smooth'})}
+function filterList(f){currentFilter=f;renderList()}
+function renderList(){let all=getScripts();let list=all;if(currentFilter!=='all')list=list.filter(s=>s.type===currentFilter);document.getElementById('count').textContent=all.length+' สคริป';let el=document.getElementById('list');if(!list.length){el.innerHTML='<p class="muted">ยังไม่มีสคริปใน Local</p>';return}el.innerHTML=list.map(s=>{let realIdx=all.findIndex(x=>x.id===s.id);return '<div class="item"><b>'+s.name+'</b> <span class="badge">'+s.id+'</span> <span class="badge2">'+(s.type==='raw'?'ดิบ':'ป้องกันแล้ว')+'</span><div class="muted">'+s.date+'</div><pre>'+s.code.slice(0,400)+'</pre><div class="row"><button class="btn btn-d" onclick="viewScript('+realIdx+')">ดูเต็ม</button><button class="btn btn-g" onclick="copyScript('+realIdx+')">คัดลอก</button><button class="btn btn-r" onclick="delScript('+realIdx+')">ลบ</button></div></div>'}).join('')}
+function viewScript(i){let s=getScripts()[i];document.getElementById('out').value=s.code;document.getElementById('name').value=s.name;document.getElementById('code').value=s.code;window.scrollTo({top:0,behavior:'smooth'})}
 function copyScript(i){navigator.clipboard.writeText(getScripts()[i].code).then(()=>alert('คัดลอกแล้ว'))}
-function delScript(i){if(!confirm('ลบสคริปนี้?'))return;let a=getScripts();a.splice(i,1);setScripts(a);renderList()}
+function delScript(i){if(!confirm('ลบ?'))return;let a=getScripts();a.splice(i,1);setScripts(a);renderList()}
+function clearAllLocal(){if(!confirm('ลบทั้งหมด?'))return;setScripts([]);renderList()}
 function copyOut(){let v=document.getElementById('out').value;if(!v)return alert('ยังไม่มีโค้ด');navigator.clipboard.writeText(v).then(()=>alert('คัดลอกแล้ว'))}
-function downloadOut(){let v=document.getElementById('out').value;if(!v)return alert('ยังไม่มีโค้ด');let b=new Blob([v],{type:'text/plain'});let a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=(document.getElementById('name').value||'script')+'.luau';a.click()}
-function copyLoader(){let v=document.getElementById('loader').value;if(!v)return; navigator.clipboard.writeText(v).then(()=>alert('คัดลอก Loader แล้ว'))}
-async function testGH(){
-  let t=document.getElementById('ghToken').value.trim();if(!t)return alert('ใส่ Token ก่อน');
-  document.getElementById('ghMsg').textContent='กำลังทดสอบ...';
-  try{let r=await fetch('https://api.github.com/user',{headers:{Authorization:'token '+t}});let j=await r.json();if(r.ok){document.getElementById('ghMsg').innerHTML='<span class="ok">✅ เชื่อมต่อสำเร็จ: '+j.login+'</span>';document.getElementById('ghUser').value=j.login}else{document.getElementById('ghMsg').innerHTML='<span class="err">❌ '+j.message+'</span>'}}catch(e){document.getElementById('ghMsg').textContent='❌ ต่อไม่ได้: '+e.message}
-}
-async function uploadGH(){
-  let t=document.getElementById('ghToken').value.trim();let owner=document.getElementById('ghUser').value.trim();let repo=document.getElementById('ghRepo').value.trim();let branch=document.getElementById('ghBranch').value.trim()||'main';let folder=document.getElementById('ghFolder').value.trim();let code=document.getElementById('out').value;let name=(document.getElementById('name').value||'script').replace(/\s+/g,'_');
-  if(!t)return alert('ใส่ Token ก่อน');if(!code)return alert('ป้องกันโค้ดก่อน');
-  document.getElementById('ghMsg').textContent='กำลังอัปโหลด...';
-  let path=(folder?folder.replace(/\/$/,'')+'/':'')+name+'.luau';
-  try{
-    let sha='';let get=await fetch('https://api.github.com/repos/'+owner+'/'+repo+'/contents/'+path+'?ref='+branch,{headers:{Authorization:'token '+t}});
-    if(get.ok){let gj=await get.json();sha=gj.sha}
-    let r=await fetch('https://api.github.com/repos/'+owner+'/'+repo+'/contents/'+path,{method:'PUT',headers:{Authorization:'token '+t,'Content-Type':'application/json'},body:JSON.stringify({message:'Add script via God Vault',content:btoa(unescape(encodeURIComponent(code))),branch:branch,sha:sha||undefined})});
-    let j=await r.json();if(r.ok){let raw='https://raw.githubusercontent.com/'+owner+'/'+repo+'/'+branch+'/'+path;document.getElementById('ghMsg').innerHTML='✅ อัปสำเร็จ! <a style="color:#4ade80" href="'+j.content.html_url+'" target="_blank">เปิดไฟล์บน GitHub</a><br>Raw: '+raw;document.getElementById('loader').value='loadstring(game:HttpGet("'+raw+'"))()'}else{document.getElementById('ghMsg').innerHTML='<span class="err">❌ '+j.message+'</span>'}
-  }catch(e){document.getElementById('ghMsg').textContent='❌ '+e.message}
-}
+function downloadOut(){let v=document.getElementById('out').value;if(!v)return alert('ยังไม่มีโค้ด');let b=new Blob([v],{type:'text/plain'});let a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=(document.getElementById('name').value||'script').replace(/\s+/g,'_')+'.luau';a.click()}
+function copyLoader(id){let v=document.getElementById(id).value;if(!v)return alert('สร้าง Loader ก่อน');navigator.clipboard.writeText(v).then(()=>alert('คัดลอกแล้ว'))}
+async function testGH(){let t=document.getElementById('ghToken').value.trim();if(!t)return alert('ใส่ Token ก่อน');document.getElementById('ghMsg').textContent='กำลังทดสอบ...';try{let r=await fetch('https://api.github.com/user',{headers:{Authorization:'token '+t}});let j=await r.json();if(r.ok){document.getElementById('ghMsg').innerHTML='<span class="ok">✅ '+j.login+'</span>'}else{document.getElementById('ghMsg').innerHTML='<span class="err">❌ '+j.message+'</span>'}}catch(e){document.getElementById('ghMsg').textContent='❌ '+e.message}}
+async function uploadGH(){let t=document.getElementById('ghToken').value.trim();let owner=document.getElementById('ghUser').value.trim();let repo=document.getElementById('ghRepo').value.trim();let branch=document.getElementById('ghBranch').value.trim()||'main';let folder=document.getElementById('ghFolder').value.trim();let code=document.getElementById('out').value;let name=(document.getElementById('name').value||'script').replace(/[^A-Za-z0-9_-]/g,'_');if(!t)return alert('ใส่ Token ก่อน');if(!code)return alert('ป้องกันก่อน');document.getElementById('ghMsg').textContent='กำลังอัป...';let path=(folder?folder.replace(/\/$/,'')+'/':'')+name+'.luau';try{let sha='';let get=await fetch('https://api.github.com/repos/'+owner+'/'+repo+'/contents/'+path+'?ref='+branch,{headers:{Authorization:'token '+t}});if(get.ok){let gj=await get.json();sha=gj.sha}let r=await fetch('https://api.github.com/repos/'+owner+'/'+repo+'/contents/'+path,{method:'PUT',headers:{Authorization:'token '+t,'Content-Type':'application/json'},body:JSON.stringify({message:'Add via God Vault',content:btoa(unescape(encodeURIComponent(code))),branch:branch,sha:sha||undefined})});let j=await r.json();if(r.ok){document.getElementById('ghMsg').innerHTML='✅ อัปสำเร็จ!'}else{document.getElementById('ghMsg').innerHTML='<span class="err">❌ '+j.message+'</span>'}}catch(e){document.getElementById('ghMsg').textContent='❌ '+e.message}}
 renderList();
 </script>
 <script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body>
